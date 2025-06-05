@@ -1,14 +1,23 @@
 
 class ConnectFour
+  def initialize
+    @board = Array.new(6) { Array.new(7, ' ') }
+  end
+
   def print_board
-    puts \
-      "|             |\n" + \
-      "|             |\n" + \
-      "|             |\n" + \
-      "|             |\n" + \
-      "|             |\n" + \
-      "|             |\n" + \
-      "|-------------|\n" + \
-      "|1 2 3 4 5 6 7|"
+    board_display = '|'
+    
+    @board.each do |row|
+      board_display += row.join(' ')
+      board_display += "|\n|"
+    end
+
+    board_display += "-------------|\n|1 2 3 4 5 6 7|"
+    puts board_display
+  end
+
+  def place(player, column)
+    token = :o
+    @board[5][column - 1] = token
   end
 end
