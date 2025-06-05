@@ -1,7 +1,7 @@
 
 class ConnectFour
   def initialize
-    @board = Array.new(6) { Array.new(7, ' ') }
+    @board = Array.new(6) { Array.new(7, :' ') }
   end
 
   def print_board
@@ -17,7 +17,17 @@ class ConnectFour
   end
 
   def place(player, column)
-    token = :o
-    @board[5][column - 1] = token
+    token = player == 1 ? :o : :x
+    row = get_top_row(column - 1)
+    @board[row][column - 1] = token
+  end
+
+  def get_top_row(column)
+    @board.each_with_index do |row, i|
+      if row[column] != :' '
+        return i - 1
+      end
+    end
+    return @board.size - 1
   end
 end
