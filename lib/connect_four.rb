@@ -23,8 +23,12 @@ class ConnectFour
   end
 
   def get_top_row(column)
+    if column < 0
+      raise IndexError
+    end
+
     @board.each_with_index do |row, i|
-      if row[column] != :' '
+      if row.fetch(column) != :' '
         return i - 1
       end
     end
