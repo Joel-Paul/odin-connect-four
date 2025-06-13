@@ -77,17 +77,17 @@ describe ConnectFour do
   describe '#place' do
     context 'when placing a token outside the column' do
       it 'raises an IndexError' do
-        expect{ new_game.place(1, 0) }.to raise_error(IndexError)
-        expect{ new_game.place(1, 10) }.to raise_error(IndexError)
+        expect{ new_game.place(1, 0) }.to raise_error(IndexError, "Column 0 is out of bounds")
+        expect{ new_game.place(1, 10) }.to raise_error(IndexError, "Column 10 is out of bounds")
       end
     end
 
     context 'when placing a token in a full column' do
       it 'raises an IndexError' do
-        5.times {
+        6.times {
           expect{ new_game.place(1, 3) }.not_to raise_error
         }
-        expect{ new_game.place(1, 3) }.to raise_error(IndexError)
+        expect{ new_game.place(1, 3) }.to raise_error(IndexError, "Column 3 is full")
       end
     end
   end
