@@ -22,15 +22,15 @@ class ConnectFour
     @board[row][column - 1] = token
   end
 
-  def get_top_row(column)
-    if column < 0 or column >= @board[0].size
-      raise IndexError, "Column #{column + 1} is out of bounds"
+  def get_top_row(j)
+    if j < 0 or j >= @board[0].size
+      raise IndexError, "Column #{j + 1} is out of bounds"
     end
 
     @board.each_with_index do |row, i|
-      if row.fetch(column) != :' '
+      if row.fetch(j) != :' '
         if i == 0
-          raise IndexError, "Column #{column + 1} is full"
+          raise IndexError, "Column #{j + 1} is full"
         end
         return i - 1
       end
