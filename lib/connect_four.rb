@@ -22,6 +22,8 @@ class ConnectFour
     @board[row][column - 1] = token
   end
 
+  private
+
   def get_top_row(j)
     if j < 0 or j >= @board[0].size
       raise IndexError, "Column #{j + 1} is out of bounds"
