@@ -91,4 +91,74 @@ describe ConnectFour do
       end
     end
   end
+
+  describe '#get_winner' do
+    context 'when there is no winner' do
+      it 'returns nil' do
+        expect(new_game.get_winner).to be_nil
+
+        3.times do |i|
+          new_game.place(1, i + 1)
+        end
+        expect(new_game.get_winner).to be_nil
+
+        3.times do
+          new_game.place(2, 3)
+        end
+        expect(new_game.get_winner).to be_nil
+      end
+    end
+
+    context 'when player 1 has a horizontal win' do
+      it 'returns 1' do
+        4.times do |i|
+          new_game.place(1, i + 1)
+        end
+        expect(new_game.get_winner).to eq(1)
+      end
+    end
+
+    context 'when player 2 has a vertical win' do
+      it 'returns 2' do
+        4.times do
+          new_game.place(2, 3)
+        end
+        expect(new_game.get_winner).to eq(2)
+      end
+    end
+
+    context 'when player 1 has a diagonal win' do
+      it 'returns 1' do
+        new_game.place(1, 1)
+        new_game.place(2, 2)
+        new_game.place(1, 2)
+        new_game.place(2, 3)
+        new_game.place(1, 4)
+        new_game.place(2, 3)
+        new_game.place(1, 3)
+        new_game.place(2, 4)
+        new_game.place(1, 5)
+        new_game.place(2, 4)
+        new_game.place(1, 4)
+        expect(new_game.get_winner).to eq(1)
+      end
+    end
+    
+    context 'when player 2 has a diagonal win' do
+      it 'returns 2' do
+        new_game.place(2, 7)
+        new_game.place(1, 6)
+        new_game.place(2, 6)
+        new_game.place(1, 5)
+        new_game.place(2, 4)
+        new_game.place(1, 5)
+        new_game.place(2, 5)
+        new_game.place(1, 4)
+        new_game.place(2, 3)
+        new_game.place(1, 4)
+        new_game.place(2, 4)
+        expect(new_game.get_winner).to eq(2)
+      end
+    end
+  end
 end
