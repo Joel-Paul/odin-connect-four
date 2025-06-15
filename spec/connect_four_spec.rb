@@ -173,5 +173,16 @@ describe ConnectFour do
         new_game.player_input()
       end
     end
+    
+    context 'when player enters two invalid numbers, then a valid number' do
+      it 'stops loop and displays the error message twice' do
+        invalid_1 = '12'
+        invalid_2 = '%#'
+        valid_input = '3'
+        allow(new_game).to receive(:gets).and_return(invalid_1, invalid_2, valid_input)
+        expect(new_game).to receive(:puts).with(error_message).twice
+        new_game.player_input()
+      end
+    end
   end
 end
