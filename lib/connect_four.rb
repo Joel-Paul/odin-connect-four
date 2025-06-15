@@ -5,6 +5,24 @@ class ConnectFour
     @board = Array.new(6) { Array.new(7, :' ') }
   end
 
+  def play
+    introduction
+    player = 1
+    loop do
+      print_board
+      puts "Player #{player}'s turn!"
+      puts "Enter a number betewen 1 and 7."
+      column = player_input
+      place(player, column)
+      if get_winner
+        print_board
+        puts "Player #{player} wins!"
+        return
+      end
+      player = player % 2 + 1
+    end
+  end
+
   def print_board(board = @board)
     board_display = '|'
     
@@ -36,15 +54,29 @@ class ConnectFour
       input = gets.chomp
       column = verify_input(input.to_i) if input.match?(/^\d$/)
       return column if column
-      
+
       puts "Input error! Please enter a number between 1 and 7."
     end
   end
 
   private
 
+  def introduction
+    puts <<~HEREDOC
+      Let's play Connect 4!
+      Choose a column between 1 and 7 and try to get four tokens in a row.
+      A valid row can be horizontal, vertical, or diagonal.
+    HEREDOC
+  end
+
   def verify_input(column)
-    return column if column.between?(1, 7)
+    return unless column.between?(1, 7)
+    j = column.to_i - 1
+    begin
+      get_top_row(j)
+      return j + 1
+    rescue IndexError
+    end
   end
 
   def get_top_row(j)
