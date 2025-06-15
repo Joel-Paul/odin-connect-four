@@ -31,7 +31,21 @@ class ConnectFour
     get_diagonal_winner
   end
 
+  def player_input
+    loop do
+      input = gets.chomp
+      column = verify_input(input.to_i) if input.match?(/^\d$/)
+      return column if column
+      
+      puts "Input error! Please enter a number between 1 and 7."
+    end
+  end
+
   private
+
+  def verify_input(column)
+    return column if column.between?(1, 7)
+  end
 
   def get_top_row(j)
     if j < 0 or j >= @board[0].size
