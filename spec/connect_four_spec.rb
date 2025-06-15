@@ -161,4 +161,17 @@ describe ConnectFour do
       end
     end
   end
+
+  describe '#player_input' do
+    error_message = "Input error! Please enter a number between 1 and 7."
+
+    context 'when player enters a valid number' do
+      it 'stops loop and does not display error message' do
+        valid_input = '3'
+        allow(new_game).to receive(:gets).and_return(valid_input)
+        expect(new_game).not_to receive(:puts).with(error_message)
+        new_game.player_input()
+      end
+    end
+  end
 end
